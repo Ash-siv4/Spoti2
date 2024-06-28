@@ -28,6 +28,7 @@ const generateRandomString = (length) => {
 
 const stateKey = "spotify_auth_state";
 
+// Redirect to Spotify in order to login to free/premium account that is linked to MY-app
 app.get("/login", (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -46,6 +47,7 @@ app.get("/login", (req, res) => {
   res.redirect(authUrl);
 });
 
+// Redirect URls - directs to Ash~Spoti2 app created in: 'Spotify for Developers' portal
 app.get("/callback", async (req, res) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
@@ -90,6 +92,7 @@ app.get("/callback", async (req, res) => {
   }
 });
 
+// Default home page
 app.get("/home", async (req, res) => {
   const accessToken = req.query.access_token;
 

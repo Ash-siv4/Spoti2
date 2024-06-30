@@ -1,4 +1,10 @@
-# Ash~Spoti2: Spotify Music App
+<p align="center">
+<img src="https://imgur.com/xmXor9W.png" height=25% width=25%>
+</p>
+
+# Music App
+
+<!-- ![Spoti2 Logo](https://imgur.com/xmXor9W.png) -->
 
 This project is a full-stack web application that utilises the Spotify API to fetch and display a user's saved tracks. The backend is built with Node.js and Express.
 

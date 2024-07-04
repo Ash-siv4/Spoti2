@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Music App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .track {
+            margin: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spotify Music App</h1>
+    <div id="tracks"></div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessToken = urlParams.get('access_token');
+
+        if (!accessToken) {
+            window.location.href = '/login';
+        } else {
+            fetch('/home?' + new URLSearchParams({ access_token: accessToken }))
+                .then(response => response.json())
+                .then(tracks => {
+                    const tracksDiv = document.getElementById('tracks');
+                    tracks.forEach(track => {
+                        const trackDiv = document.createElement('div');
+                        trackDiv.classList.add('track');
+                        trackDiv.innerHTML = `
+                            <h2>${track.name}</h2>
+                            <p>Artist: ${track.artist}</p>
+                            <p>Album: ${track.album}</p>
+                            ${track.preview_url ? `<audio controls src="${track.preview_url}"></audio>` : '<p>No preview available</p>'}
+                        `;
+                        tracksDiv.appendChild(trackDiv);
+                    });
+                })
+                .catch(error => console.error('Error fetching tracks:', error));
+        }
+    </script>
+</body>
+</html>

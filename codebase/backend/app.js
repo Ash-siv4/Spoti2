@@ -13,7 +13,13 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "client/build")));
+
+// console.log("Current directory:", __dirname);
+// const codeDir = path.resolve(path.join(__dirname, ".."));
+// console.log("Parent directory:", codeDir);
+// console.log("process.cwd():", process.cwd());
+
+app.use(express.static(path.join(__dirname, "..")));
 
 const generateRandomString = (length) => {
   let text = "";
@@ -126,7 +132,7 @@ app.get("/home", async (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
 });
 
 app.listen(port, () => {
